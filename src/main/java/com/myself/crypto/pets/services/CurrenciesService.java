@@ -3,6 +3,7 @@ package com.myself.crypto.pets.services;
 import com.myself.crypto.pets.entities.Currency;
 import com.myself.crypto.pets.entities.dtos.CurrencyDto;
 import com.myself.crypto.pets.exceptions.CurrencyNotFoundException;
+import com.myself.crypto.pets.parser.Parser;
 import com.myself.crypto.pets.repositories.CurrenciesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -10,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -27,6 +29,21 @@ public class CurrenciesService {
 
     public Currency findById(Long id) {
         return currenciesRepository.findById(id).orElseThrow(() -> new CurrencyNotFoundException("Can't found currency with id = " + id));
+    }
+
+    public Currency findByName(String name) {
+        return currenciesRepository.findByTitle(name);
+    }
+
+    public Currency updatePrice (String name) {
+        Currency c = currenciesRepository.findByTitle(name);
+        try {
+            c.setUSD(Parser.getLastPriseByPairs(name));
+            System.out.println(Parser.getLastPriseByPairs(name).toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return currenciesRepository.save(c);
     }
 
     public List<Currency> findAll() {
@@ -55,4 +72,5 @@ public class CurrenciesService {
     public List<CurrencyDto> getDtoData() {
         return currenciesRepository.findAllBy();
     }
+
 }

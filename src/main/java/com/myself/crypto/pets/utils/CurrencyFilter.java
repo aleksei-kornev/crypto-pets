@@ -18,12 +18,12 @@ public class CurrencyFilter {
         this.spec = Specification.where(null);
         this.filterDefinition = new StringBuilder();
         if (map.containsKey("min_price") && !map.get("min_price").isEmpty()) {
-            int minPrice = Integer.parseInt(map.get("min_price"));
+            float minPrice = Float.parseFloat(map.get("min_price"));
             spec = spec.and(CurrencySpecifications.priceGreaterOrEqualsThan(minPrice));
             filterDefinition.append("&min_price=").append(minPrice);
         }
         if (map.containsKey("max_price") && !map.get("max_price").isEmpty()) {
-            int maxPrice = Integer.parseInt(map.get("max_price"));
+            float maxPrice = Float.parseFloat(map.get("max_price"));
             spec = spec.and(CurrencySpecifications.priceLesserOrEqualsThan(maxPrice));
             filterDefinition.append("&max_price=").append(maxPrice);
         }

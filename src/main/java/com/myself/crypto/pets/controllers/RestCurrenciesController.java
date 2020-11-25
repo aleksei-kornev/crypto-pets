@@ -75,7 +75,7 @@ public class RestCurrenciesController {
         if (currency.getId() == null || !currenciesService.existsById(currency.getId())) {
             throw new CurrencyNotFoundException("Currency not found, id: " + currency.getId());
         }
-        if (currency.getPrice() < 0) {
+        if (currency.getUSD() < 0) {
             return new ResponseEntity<>("Currency's price can not be negative", HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(currenciesService.saveOrUpdate(currency), HttpStatus.OK);

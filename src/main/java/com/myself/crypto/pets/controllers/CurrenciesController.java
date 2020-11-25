@@ -1,12 +1,18 @@
 package com.myself.crypto.pets.controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.myself.crypto.pets.entities.Category;
 import com.myself.crypto.pets.entities.Currency;
+import com.myself.crypto.pets.entities.dtos.CurrencyDto;
+import com.myself.crypto.pets.exceptions.CurrencyNotFoundException;
 import com.myself.crypto.pets.services.CategoriesService;
 import com.myself.crypto.pets.services.CurrenciesService;
 import com.myself.crypto.pets.utils.CurrencyFilter;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -39,6 +45,18 @@ public class CurrenciesController {
         model.addAttribute("currencies", currencies);
         model.addAttribute("filterDef", currencyFilter.getFilterDefinition().toString());
         return "all_currencies";
+    }
+
+//    @GetMapping("/updateCurrencies")
+//    public String updateCurrenciesFromApi() {
+//        currenciesService.updateCurrenciesFromApi();
+//        return "redirect:/currencies/";
+//    }
+
+    @GetMapping(path = "/updatePrice")
+    public String updatePrice() {
+        currenciesService.updatePrice("ETH");
+        return "redirect:/currencies/";
     }
 
     @GetMapping("/add")

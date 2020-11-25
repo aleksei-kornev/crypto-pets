@@ -1,11 +1,11 @@
 drop table if exists currencies cascade;
-create table currencies (id bigserial, title varchar(255), description varchar(5000), price int, primary key(id));
+create table currencies (id bigserial, title varchar(255), name varchar(255), description varchar(5000), USD real, primary key(id));
 insert into currencies
-(title, description, price) values
-('BTC', 'Bitcoin', 17040),
-('ETH', 'Ethereum', 471),
-('Tether', 'Fresh apples', 1),
-('XRP', 'Fresh bread', 0.30);
+(title, name, description, USD) values
+('BTC', 'Bitcoin', '', 17040.2),
+('ETH', 'Ethereum', '', 471.1),
+('Tether', 'Tether', '', 1),
+('XRP', 'Ripple', '', 0.30);
 
 drop table if exists categories cascade;
 create table categories (id bigserial, title varchar(255), primary key(id));

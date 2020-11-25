@@ -5,12 +5,12 @@ import com.myself.crypto.pets.entities.Currency;
 import org.springframework.data.jpa.domain.Specification;
 
 public class CurrencySpecifications {
-    public static Specification<Currency> priceGreaterOrEqualsThan(int minPrice) {
-        return (Specification<Currency>) (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.greaterThanOrEqualTo(root.get("price"), minPrice);
+    public static Specification<Currency> priceGreaterOrEqualsThan(float minPrice) {
+        return (Specification<Currency>) (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.greaterThanOrEqualTo(root.get("USD"), minPrice);
     }
 
-    public static Specification<Currency> priceLesserOrEqualsThan(int maxPrice) {
-        return (Specification<Currency>) (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.lessThanOrEqualTo(root.get("price"), maxPrice);
+    public static Specification<Currency> priceLesserOrEqualsThan(float maxPrice) {
+        return (Specification<Currency>) (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.lessThanOrEqualTo(root.get("USD"), maxPrice);
     }
 
     public static Specification<Currency> titleLike(String title) {

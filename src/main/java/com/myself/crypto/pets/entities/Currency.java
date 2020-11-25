@@ -16,11 +16,17 @@ public class Currency {
     @Column(name = "id")
     private Long id;
 
+    @Column(name = "name")
+    private String name;
+
     @Column(name = "title")
     private String title;
 
-    @Column(name = "price")
-    private int price;
+    @Column(name = "description")
+    private String description;
+
+    @Column(name = "USD")
+    private float USD;
 
     @ManyToMany
     @JoinTable(name = "currencies_categories",
@@ -28,9 +34,11 @@ public class Currency {
             inverseJoinColumns = @JoinColumn(name = "category_id"))
     private List<Category> categories;
 
-    public Currency(Long id, String title, int price) {
+    public Currency(Long id, String title, String name, float USD, String description) {
         this.id = id;
+        this.name = name;
         this.title = title;
-        this.price = price;
+        this.USD = USD;
+        this.description = description;
     }
 }
