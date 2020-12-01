@@ -27,10 +27,10 @@ public class CurrencyFilter {
             spec = spec.and(CurrencySpecifications.priceLesserOrEqualsThan(maxPrice));
             filterDefinition.append("&max_price=").append(maxPrice);
         }
-        if (map.containsKey("title") && !map.get("title").isEmpty()) {
-            String title = map.get("title");
-            spec = spec.and(CurrencySpecifications.titleLike(title));
-            filterDefinition.append("&title=").append(title);
+        if (map.containsKey("ticker") && !map.get("ticker").isEmpty()) {
+            String ticker = map.get("ticker");
+            spec = spec.and(CurrencySpecifications.tickerLike(ticker));
+            filterDefinition.append("&ticker=").append(ticker);
         }
         if (categories != null && !categories.isEmpty()) {
             Specification specCategories = null;

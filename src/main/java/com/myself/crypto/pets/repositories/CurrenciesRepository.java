@@ -11,5 +11,5 @@ import java.util.List;
 @Repository
 public interface CurrenciesRepository extends JpaRepository<Currency, Long>, JpaSpecificationExecutor<Currency> {
     List<CurrencyDto> findAllBy();
-    Currency findByTitle (String title);
+    Currency findByTicker (String ticker);
 }

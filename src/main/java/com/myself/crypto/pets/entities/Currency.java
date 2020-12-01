@@ -19,8 +19,8 @@ public class Currency {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "title")
-    private String title;
+    @Column(name = "ticker")
+    private String ticker;
 
     @Column(name = "description")
     private String description;
@@ -34,10 +34,10 @@ public class Currency {
             inverseJoinColumns = @JoinColumn(name = "category_id"))
     private List<Category> categories;
 
-    public Currency(Long id, String title, String name, float USD, String description) {
+    public Currency(Long id, String ticker, String name, float USD, String description) {
         this.id = id;
         this.name = name;
-        this.title = title;
+        this.ticker = ticker;
         this.USD = USD;
         this.description = description;
     }

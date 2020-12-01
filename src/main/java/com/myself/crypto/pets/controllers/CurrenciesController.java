@@ -53,9 +53,9 @@ public class CurrenciesController {
 //        return "redirect:/currencies/";
 //    }
 
-    @GetMapping(path = "/updatePrice")
-    public String updatePrice() {
-        currenciesService.updatePrice("ETH");
+    @GetMapping(path = "/updatePrices")
+    public String updateAllPrices() {
+        currenciesService.updateAllPrices();
         return "redirect:/currencies/";
     }
 

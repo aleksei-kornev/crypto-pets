@@ -32,18 +32,11 @@ public class CurrenciesService {
     }
 
     public Currency findByName(String name) {
-        return currenciesRepository.findByTitle(name);
+        return currenciesRepository.findByTicker(name);
     }
 
-    public Currency updatePrice (String name) {
-        Currency c = currenciesRepository.findByTitle(name);
-        try {
-            c.setUSD(Parser.getLastPriseByPairs(name));
-            System.out.println(Parser.getLastPriseByPairs(name).toString());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return currenciesRepository.save(c);
+    public List<Currency> updateAllPrices () {
+        return currenciesRepository.saveAll(Parser.updateAllCurrenciesPricesFromApi(currenciesRepository.findAll()));
     }
 
     public List<Currency> findAll() {

@@ -16,7 +16,7 @@
     <form th:action="@{/currencies/edit}" th:object="${currency}" method="POST">
         <input hidden th:field="*{id}"/>
         <br>
-        Name: <input th:field="*{title}"/>
+        Name: <input th:field="*{ticker}"/>
         <br>
         Score: <input th:field="*{USD}"/>
         <br>

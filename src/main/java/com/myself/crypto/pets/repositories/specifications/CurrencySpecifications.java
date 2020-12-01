@@ -13,8 +13,8 @@ public class CurrencySpecifications {
         return (Specification<Currency>) (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.lessThanOrEqualTo(root.get("USD"), maxPrice);
     }
 
-    public static Specification<Currency> titleLike(String title) {
-        return (Specification<Currency>) (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.like(root.get("title"), String.format("%%%s%%", title));
+    public static Specification<Currency> tickerLike(String ticker) {
+        return (Specification<Currency>) (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.like(root.get("ticker"), String.format("%%%s%%", ticker));
     }
 
     public static Specification<Currency> categoryIs(Category category) {

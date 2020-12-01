@@ -21,8 +21,8 @@
     <form th:accept="@{'/currencies'}" method="get">
         <div class="form-group">
             <label>Название</label>
-            <input th:value="${param.title != null ? param.title : ''}" class="form-control form-control-sm"
-                   name="title">
+            <input th:value="${param.ticker != null ? param.ticker : ''}" class="form-control form-control-sm"
+                   name="ticker">
         </div>
         <div class="form-row">
             <div class="form-group col-md-6">
@@ -62,7 +62,7 @@
 
         <tr th:each="p : ${currencies.getContent()}">
             <td th:text="${p.id}"></td>
-            <td th:text="${p.title}"></td>
+            <td th:text="${p.ticker}"></td>
             <td th:text="${p.USD}"></td>
             <td><a th:href="@{'/currencies/edit/' + ${p.id}}">Редактировать</a></td>
         </tr>
