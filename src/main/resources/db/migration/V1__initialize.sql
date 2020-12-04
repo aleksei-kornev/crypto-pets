@@ -19,6 +19,22 @@ create table currencies_categories (currency_id bigint not null, category_id big
 foreign key (currency_id) references currencies(id), foreign key (category_id) references categories(id));
 insert into currencies_categories (currency_id, category_id) values (1, 1), (2, 1), (3, 1), (4, 2);
 
+drop table if exists portfolios cascade;
+create table portfolios (id bigserial, user_id bigserial, public boolean, cost real, last_update timestamp, primary key(id));
+insert into portfolios
+(user_id, public, cost) values
+(1, true, 100),
+(2, true, 200);
+
+drop table if exists positions cascade;
+create table positions (id bigserial, amount bigserial not null, currency_id bigserial not null, portfolio_id bigserial not null, primary key(id),
+foreign key (currency_id) references currencies(id), foreign key (portfolio_id) references portfolios(id));
+insert into positions
+(amount, currency_id, portfolio_id) values
+(3, 1, 1),
+(30, 3, 1),
+(49, 2, 1);
+
 drop table if exists users;
 create table users (
   id                    bigserial,
