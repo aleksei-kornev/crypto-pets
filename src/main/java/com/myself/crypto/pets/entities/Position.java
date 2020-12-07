@@ -19,16 +19,16 @@ public class Position {
     @Column(name = "amount")
     private Long amount;
 
-    @Column(name = "id_currency")
-    private float idCurrency;
+    @Column(name = "currency_id")
+    private Float currencyId;
 
-    @ManyToOne
+    @ManyToOne (fetch = FetchType.EAGER)
     @JoinColumn (name="portfolio_id")
     private Portfolio portfolio;
 
-    public Position(Long id, Long amount, float idCurrency) {
+    public Position(Long id, Long amount, Float currencyId) {
         this.id = id;
         this.amount = amount;
-        this.idCurrency = idCurrency;
+        this.currencyId = currencyId;
     }
 }

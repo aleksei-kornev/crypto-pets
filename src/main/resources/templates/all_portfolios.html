@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Crypto pets</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+<div class="container">
+    <div th:replace="~{navigation :: navigation(Market)}"/>
+
+    <h2>Crypto pets</h2>
+
+    <h4>Список портфелей:</h4>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <td>Id</td>
+            <td>Пользователь</td>
+            <td>Публичен</td>
+            <td>Стоимость</td>
+            <td>Позиций</td>
+            <td>Последнее обновление</td>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr th:each="p : ${portfolios}">
+            <td th:text="${p.id}"></td>
+            <td th:text="${p.userId}"></td>
+            <td th:if="${p.isPublic()}">да</td>
+            <td th:unless="${p.isPublic()}">нет</td>
+            <td th:text="${p.cost}"></td>
+            <td th:text="${p.getPositions().size()}"></td>
+            <td th:text="${p.lastUpdate}"></td>
+            <td><a th:href="@{'/portfolios/view/' + ${p.id}}">Просмотреть</a></td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+</body>
+</html>

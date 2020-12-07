@@ -22,9 +22,9 @@ insert into currencies_categories (currency_id, category_id) values (1, 1), (2, 
 drop table if exists portfolios cascade;
 create table portfolios (id bigserial, user_id bigserial, public boolean, cost real, last_update timestamp, primary key(id));
 insert into portfolios
-(user_id, public, cost) values
-(1, true, 100),
-(2, true, 200);
+(user_id, public, cost, last_update) values
+(1, true, 100, '2020-12-01 15:13:43'),
+(2, true, 200, '2020-12-02 17:01:32');
 
 drop table if exists positions cascade;
 create table positions (id bigserial, amount bigserial not null, currency_id bigserial not null, portfolio_id bigserial not null, primary key(id),
