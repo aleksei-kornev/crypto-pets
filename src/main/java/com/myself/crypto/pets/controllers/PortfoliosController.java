@@ -35,9 +35,14 @@ public class PortfoliosController {
         List<Portfolio> portfolios = portfoliosService.findAll();
         model.addAttribute("portfolios", portfolios);
 
-        System.out.println(System.currentTimeMillis());
-
         return "all_portfolios";
+    }
+
+    @GetMapping (path = "/view/{id}")
+    public String showPortfolio(@PathVariable Long id, Model model) {
+        Portfolio portfolio = portfoliosService.findById(id);
+        model.addAttribute("portfolio", portfolio);
+        return "view_portfolio";
     }
 
 //    @GetMapping(path = "/updatePrices")

@@ -30,11 +30,11 @@ public class PortfoliosService {
 //    public Portfolio saveOrUpdate(Portfolio portfolio) {
 //        return portfoliosRepository.save(portfolio);
 //    }
-//
-//    //Подправить исключение на специальное для портфелей
-//    public Portfolio findById(Long id) {
-//        return portfoliosRepository.findById(id).orElseThrow(() -> new CurrencyNotFoundException("Can't found portfolio with id = " + id));
-//    }
+
+    //Подправить исключение на специальное для портфелей
+    public Portfolio findById(Long id) {
+        return portfoliosRepository.findById(id).orElseThrow(() -> new CurrencyNotFoundException("Can't found portfolio with id = " + id));
+    }
 
     public List<Portfolio> findAll() {
         return portfoliosRepository.findAll();

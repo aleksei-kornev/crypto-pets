@@ -19,8 +19,9 @@ public class Position {
     @Column(name = "amount")
     private Long amount;
 
-    @Column(name = "currency_id")
-    private Float currencyId;
+    @OneToOne (fetch = FetchType.EAGER)
+    @JoinColumn (name="currency_id")
+    private Currency coin;
 
     @ManyToOne (fetch = FetchType.EAGER)
     @JoinColumn (name="portfolio_id")
@@ -29,6 +30,5 @@ public class Position {
     public Position(Long id, Long amount, Float currencyId) {
         this.id = id;
         this.amount = amount;
-        this.currencyId = currencyId;
     }
 }

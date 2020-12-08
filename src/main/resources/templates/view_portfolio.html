@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Crypto pets</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+<div class="container">
+    <div th:replace="~{navigation :: navigation(Market)}"/>
+
+    <h4>Сводная информация по портфелю:</h4>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <td>Id</td>
+            <td>Пользователь</td>
+            <td>Публичен</td>
+            <td>Стоимость</td>
+            <td>Позиций</td>
+            <td>Последнее обновление</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td th:text="${portfolio.id}"></td>
+            <td th:text="${portfolio.userId}"></td>
+            <td th:if="${portfolio.isPublic()}">да</td>
+            <td th:unless="${portfolio.isPublic()}">нет</td>
+            <td th:text="${portfolio.cost}"></td>
+            <td th:text="${portfolio.getPositions().size()}"></td>
+            <td th:text="${portfolio.lastUpdate}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h4>Список позиций портфеля:</h4>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <td>Монета</td>
+            <td>Цена</td>
+            <td>Количество</td>
+            <td>Стоимость</td>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr th:each="p : ${portfolio.positions}">
+            <td th:text="${p.getCoin().getTicker()}"></td>
+            <td th:text="${#numbers.formatDecimal(p.getCoin().getUSD(), 1, 'WHITESPACE', 2, 'POINT')}"></td>
+            <td th:text="${p.getAmount()}"></td>
+            <td th:text="${#numbers.formatDecimal((p.getAmount() * p.getCoin().getUSD()), 1, 'WHITESPACE', 2, 'POINT')}"> </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+</body>
+</html>
