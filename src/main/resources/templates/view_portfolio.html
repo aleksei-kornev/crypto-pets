@@ -13,7 +13,7 @@
 
 <body>
 <div class="container">
-    <div th:replace="~{navigation :: navigation(Market)}"/>
+    <div th:replace="~{navigation :: navigation(Portfolios)}"/>
 
     <h4>Сводная информация по портфелю:</h4>
     <table class="table table-striped">
@@ -57,6 +57,8 @@
             <td th:text="${#numbers.formatDecimal(p.getCoin().getUSD(), 1, 'WHITESPACE', 2, 'POINT')}"></td>
             <td th:text="${p.getAmount()}"></td>
             <td th:text="${#numbers.formatDecimal((p.getAmount() * p.getCoin().getUSD()), 1, 'WHITESPACE', 2, 'POINT')}"> </td>
+            <td ><a th:href="@{'/portfolios/edit/?portfolio=' + ${portfolio.getId()} + '&position=' + ${p.getId()} + '&delete=true' }">Удалить</a> </td>
+            <td ><a th:href="@{'/portfolios/edit/?portfolio=' + ${portfolio.getId()} + '&position=' + ${p.getId()} }">Редактировать</a> </td>
         </tr>
         </tbody>
     </table>

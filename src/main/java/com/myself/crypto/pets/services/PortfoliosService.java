@@ -2,11 +2,13 @@ package com.myself.crypto.pets.services;
 
 import com.myself.crypto.pets.entities.Currency;
 import com.myself.crypto.pets.entities.Portfolio;
+import com.myself.crypto.pets.entities.Position;
 import com.myself.crypto.pets.entities.dtos.CurrencyDto;
 import com.myself.crypto.pets.exceptions.CurrencyNotFoundException;
 import com.myself.crypto.pets.parser.Parser;
 import com.myself.crypto.pets.repositories.CurrenciesRepository;
 import com.myself.crypto.pets.repositories.PortfoliosRepository;
+import com.myself.crypto.pets.repositories.PositionsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,17 +21,27 @@ import java.util.List;
 @Service
 public class PortfoliosService {
     private PortfoliosRepository portfoliosRepository;
-    private CurrenciesRepository currenciesRepository;
+    private PositionsRepository positionsRepository;
 
     @Autowired
-    public void setPortfoliosRepository(PortfoliosRepository portfoliosRepository, CurrenciesRepository currenciesRepository) {
+    public void setPortfoliosRepository(PortfoliosRepository portfoliosRepository, PositionsRepository positionsRepository) {
         this.portfoliosRepository = portfoliosRepository;
-        this.currenciesRepository = currenciesRepository;
+        this.positionsRepository = positionsRepository;
     }
 
-//    public Portfolio saveOrUpdate(Portfolio portfolio) {
-//        return portfoliosRepository.save(portfolio);
-//    }
+    public Portfolio saveOrUpdate(Portfolio portfolio) {
+        return portfoliosRepository.save(portfolio);
+    }
+
+    public Portfolio recalculateCost(Long id) {
+        Float newCost = 0F;
+        Portfolio portfolio = findById(id);
+        for (Position position : portfolio.getPositions()) {
+            newCost += position.getAmount() * position.getCoin().getUSD();
+        }
+        portfolio.setCost(newCost);
+        return saveOrUpdate(portfolio);
+    }
 
     //Подправить исключение на специальное для портфелей
     public Portfolio findById(Long id) {
@@ -50,11 +62,15 @@ public class PortfoliosService {
 //    public void deleteAll() {
 //        portfoliosRepository.deleteAll();
 //    }
-//
-//    public void deleteById(Long id) {
-//        portfoliosRepository.deleteById(id);
-//    }
-//
+
+    public void deleteById(Long id) {
+        portfoliosRepository.deleteById(id);
+    }
+
+    public void deletePositionById(Long idPosition) {
+        positionsRepository.deleteById(idPosition);
+    }
+
 //    public boolean existsById(Long id) {
 //        return portfoliosRepository.existsById(id);
 //    }

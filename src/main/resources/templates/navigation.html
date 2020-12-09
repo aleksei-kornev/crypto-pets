@@ -19,8 +19,11 @@
                 <li class="nav-item" th:classappend="${activeTab == 'Home' ? 'active' : ''}">
                     <a class="nav-link" th:href="@{'/'}" th:text="#{nav.home}"></a>
                 </li>
-                <li class="nav-item" th:classappend="${activeTab == 'Market' ? 'active' : ''}">
+                <li class="nav-item" th:classappend="${activeTab == 'Currencies' ? 'active' : ''}">
                     <a class="nav-link" th:href="@{'/currencies'}" th:text="#{nav.currencies}"></a>
+                </li>
+                <li class="nav-item" th:classappend="${activeTab == 'Portfolios' ? 'active' : ''}">
+                    <a class="nav-link" th:href="@{'/portfolios'}" th:text="#{nav.portfolios}"></a>
                 </li>
                 <li class="nav-item" th:classappend="${activeTab == 'About' ? 'active' : ''}">
                     <a class="nav-link" th:href="@{'/about'}" th:text="#{nav.about}"></a>

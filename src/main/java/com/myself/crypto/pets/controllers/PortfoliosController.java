@@ -62,12 +62,28 @@ public class PortfoliosController {
 //        return "redirect:/currencies/";
 //    }
 //
-//    @GetMapping("/edit/{id}")
-//    public String showEditForm(@PathVariable Long id, Model model) {
-//        model.addAttribute("currency", currenciesService.findById(id));
-//        return "edit_currency_form";
-//    }
-//
+
+    @GetMapping("/delete/{id}")
+    public String deletePortfolio(@PathVariable Long id, Model model) {
+        if (portfoliosService.findById(id) != null) {
+            portfoliosService.deleteById(id);
+        }
+        return "redirect:/portfolios/";
+    }
+
+    @GetMapping("/edit")
+    public String showEditForms(Model model, @RequestParam Map<String, String> requestParams) {
+        if (requestParams.containsKey("delete") && Boolean.parseBoolean(requestParams.get("delete")) && requestParams.containsKey("position") && requestParams.containsKey("portfolio")) {
+            portfoliosService.deletePositionById(Long.parseLong(requestParams.get("position")));
+            portfoliosService.recalculateCost(Long.parseLong(requestParams.get("portfolio")));
+            return "redirect:/portfolios/view/"+requestParams.get("portfolio");
+        } else {
+            //model.addAttribute("portfolio", portfoliosService.findById(Long.getLong(requestParams.get("portfolio"))));
+            return "redirect:/portfolios/view/"+requestParams.get("portfolio");
+            //return "edit_currency_form";
+        }
+    }
+
 //    @PostMapping("/edit")
 //    public String modifyCurrency(@ModelAttribute Currency currency) {
 //        currenciesService.saveOrUpdate(currency);

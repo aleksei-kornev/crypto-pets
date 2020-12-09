@@ -27,7 +27,7 @@ public class Position {
     @JoinColumn (name="portfolio_id")
     private Portfolio portfolio;
 
-    public Position(Long id, Long amount, Float currencyId) {
+    public Position(Long id, Long amount) {
         this.id = id;
         this.amount = amount;
     }
