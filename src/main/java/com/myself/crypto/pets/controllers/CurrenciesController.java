@@ -53,7 +53,7 @@ public class CurrenciesController {
 //        return "redirect:/currencies/";
 //    }
 
-    @GetMapping(path = "/updatePrices")
+    @GetMapping(path = "/update-prices")
     public String updateAllPrices() {
         currenciesService.updateAllPrices();
         return "redirect:/currencies/";

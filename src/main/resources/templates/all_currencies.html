@@ -15,40 +15,40 @@
 <div class="container">
     <div th:replace="~{navigation :: navigation(Currencies)}"/>
 
-    <h2>Crypto pets</h2>
-    <h4>Фильтр</h4>
+<!--    <h2>Crypto pets</h2>-->
+<!--    <h4>Фильтр</h4>-->
 
-    <form th:accept="@{'/currencies'}" method="get">
-        <div class="form-group">
-            <label>Название</label>
-            <input th:value="${param.ticker != null ? param.ticker : ''}" class="form-control form-control-sm"
-                   name="ticker">
-        </div>
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label>Минимальная цена</label>
-                <input type="number" step="any" th:value="${param.min_price != null ? param.min_price : ''}"
-                       class="form-control form-control-sm" name="min_price">
-            </div>
-            <div class="form-group col-md-6">
-                <label>Максимальная цена</label>
-                <input type="number" step="any" th:value="${param.max_price != null ? param.max_price : ''}"
-                       class="form-control form-control-sm" name="max_price">
-            </div>
-        </div>
-        <div class="form-group">
-            <label>Категории</label>
-            <div class="form-check" th:each="c : ${@categoriesService.getAllCategories()}">
-                <input type="checkbox" class="form-check-input" name="categories" th:value="${c.id}">
-                <label class="form-check-label" th:text="${c.title}"></label>
-                <span th:text="${param.categories}"/>
-            </div>
-        </div>
-        <button type="submit" class="btn btn-primary">Применить</button>
-        <a th:href="@{/currencies}" type="button" class="btn btn-warning">Сброс фильтра</a>
-    </form>
+<!--    <form th:accept="@{'/currencies'}" method="get">-->
+<!--        <div class="form-group">-->
+<!--            <label>Название</label>-->
+<!--            <input th:value="${param.ticker != null ? param.ticker : ''}" class="form-control form-control-sm"-->
+<!--                   name="ticker">-->
+<!--        </div>-->
+<!--        <div class="form-row">-->
+<!--            <div class="form-group col-md-6">-->
+<!--                <label>Минимальная цена</label>-->
+<!--                <input type="number" step="any" th:value="${param.min_price != null ? param.min_price : ''}"-->
+<!--                       class="form-control form-control-sm" name="min_price">-->
+<!--            </div>-->
+<!--            <div class="form-group col-md-6">-->
+<!--                <label>Максимальная цена</label>-->
+<!--                <input type="number" step="any" th:value="${param.max_price != null ? param.max_price : ''}"-->
+<!--                       class="form-control form-control-sm" name="max_price">-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="form-group">-->
+<!--            <label>Категории</label>-->
+<!--            <div class="form-check" th:each="c : ${@categoriesService.getAllCategories()}">-->
+<!--                <input type="checkbox" class="form-check-input" name="categories" th:value="${c.id}">-->
+<!--                <label class="form-check-label" th:text="${c.title}"></label>-->
+<!--                <span th:text="${param.categories}"/>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <button type="submit" class="btn btn-primary">Применить</button>-->
+<!--        <a th:href="@{/currencies}" type="button" class="btn btn-warning">Сброс фильтра</a>-->
+<!--    </form>-->
 
-    <h4>Список товаров:</h4>
+    <h4>Список монет:</h4>
     <table class="table table-striped">
         <thead>
         <tr>
@@ -87,6 +87,24 @@
             </li>
         </ul>
     </nav>
+
+    <h4>Добавить монету</h4>
+    <form th:action="@{/currencies/add}" th:field="*{Currency}" method="POST">
+<!--        <input hidden name="portfolioId" th:value="${portfolio.id}" type="number"/>-->
+<!--        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="coinId">-->
+<!--            <option disabled selected>Название монеты</option>-->
+<!--            <option th:each="c : ${currencies}"-->
+<!--                    th:value="${c.getId()}"-->
+<!--                    th:utext="${c.getTicker()}"/>-->
+<!--        </select>-->
+        <input type="text" name="name" placeholder="Название"/>
+        <input type="text" name="ticker" placeholder="Тикер"/>
+        <input type="text" name="description" placeholder="Описание"/>
+        <input type="number" name="USD" placeholder="Цена"/>
+        <button type="submit" class="btn btn-primary">Добавить монету</button>
+    </form>
+    <br>
+    <a th:href="@{'/currencies/update-prices/'}">Обновить цены</a>
 </div>
 </body>
 </html>
