@@ -81,4 +81,10 @@ public class CurrenciesController {
         currenciesService.saveOrUpdate(currency);
         return "redirect:/currencies/";
     }
+
+    @GetMapping("/delete/{id}")
+    public String showEditForm(@PathVariable Long id) {
+        currenciesService.deleteById(id);
+        return "redirect:/currencies/";
+    }
 }

@@ -65,6 +65,7 @@
             <td th:text="${p.ticker}"></td>
             <td th:text="${p.USD}"></td>
             <td><a th:href="@{'/currencies/edit/' + ${p.id}}">Редактировать</a></td>
+            <td><a th:href="@{'/currencies/delete/' + ${p.id}}">Удалить</a></td>
         </tr>
         </tbody>
     </table>
