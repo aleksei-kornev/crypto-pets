@@ -36,6 +36,7 @@
             <td th:text="${portfolio.cost}"></td>
             <td th:text="${portfolio.getPositions().size()}"></td>
             <td th:text="${portfolio.lastUpdate}"></td>
+            <td ><a th:href="@{'/portfolios/delete/' + ${portfolio.getId()} }">Удалить</a> </td>
         </tr>
         </tbody>
     </table>
@@ -64,10 +65,8 @@
     </table>
 
     <h4>Добавить позицию</h4>
-<!--    th:object="${position}"-->
-<!--    hidden-->
     <form th:action="@{/portfolios/add}"  method="POST">
-        <input name="portfolioId" th:value="${portfolio.id}" type="number"/>
+        <input hidden name="portfolioId" th:value="${portfolio.id}" type="number"/>
         <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="coinId">
             <option disabled selected>Название монеты</option>
             <option th:each="c : ${currencies}"

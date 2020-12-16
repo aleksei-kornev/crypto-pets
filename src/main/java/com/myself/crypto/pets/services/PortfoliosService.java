@@ -16,6 +16,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import javax.sound.sampled.Port;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Service
@@ -40,6 +41,11 @@ public class PortfoliosService {
             newCost += position.getAmount() * position.getCoin().getUSD();
         }
         portfolio.setCost(newCost);
+        return saveOrUpdate(portfolio);
+    }
+
+    public Portfolio createNewPortfolio(Long userId){
+        Portfolio portfolio = new Portfolio(null,userId,0F, new Timestamp(System.currentTimeMillis()));
         return saveOrUpdate(portfolio);
     }
 

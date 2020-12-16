@@ -80,6 +80,12 @@ public class PortfoliosController {
         return "redirect:/portfolios/";
     }
 
+    @GetMapping("/create/")
+    public String createNewPortfolio() {
+        Long portfolioId = portfoliosService.createNewPortfolio(1L).getId();
+        return "redirect:/portfolios/view/"+portfolioId;
+    }
+
     @GetMapping("/edit")
     public String showEditForms(Model model, @RequestParam Map<String, String> requestParams) {
         if (requestParams.containsKey("delete") && Boolean.parseBoolean(requestParams.get("delete")) && requestParams.containsKey("position") && requestParams.containsKey("portfolio")) {

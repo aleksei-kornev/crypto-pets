@@ -39,10 +39,12 @@
             <td th:text="${p.cost}"></td>
             <td th:text="${p.getPositions().size()}"></td>
             <td th:text="${p.lastUpdate}"></td>
+            <td ><a th:href="@{'/portfolios/delete/' + ${p.id} }">Удалить</a> </td>
             <td><a th:href="@{'/portfolios/view/' + ${p.id}}">Просмотреть</a></td>
         </tr>
         </tbody>
     </table>
+    <a th:href="@{'/portfolios/create/'}">Создать новый портфель</a>
 
 </div>
 </body>
