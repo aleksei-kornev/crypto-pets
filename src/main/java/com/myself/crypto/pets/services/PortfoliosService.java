@@ -48,6 +48,15 @@ public class PortfoliosService {
         return portfoliosRepository.findById(id).orElseThrow(() -> new CurrencyNotFoundException("Can't found portfolio with id = " + id));
     }
 
+    public Portfolio addPosition (Long portfolioId, Position position) {
+        Portfolio portfolio = findById(portfolioId);
+        List<Position> listPositions = portfolio.getPositions();
+        listPositions.add(position);
+        portfolio.setPositions(listPositions);
+        saveOrUpdate(portfolio);
+        return recalculateCost(portfolio.getId());
+    }
+
     public List<Portfolio> findAll() {
         return portfoliosRepository.findAll();
     }

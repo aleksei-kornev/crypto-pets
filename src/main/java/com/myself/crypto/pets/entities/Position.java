@@ -31,4 +31,11 @@ public class Position {
         this.id = id;
         this.amount = amount;
     }
+
+    public Position(Long id, Long amount, Portfolio portfolio, Currency coin) {
+        this.id = id;
+        this.amount = amount;
+        this.portfolio = portfolio;
+        this.coin = coin;
+    }
 }

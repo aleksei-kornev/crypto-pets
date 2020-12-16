@@ -3,6 +3,7 @@ package com.myself.crypto.pets.controllers;
 import com.myself.crypto.pets.entities.Category;
 import com.myself.crypto.pets.entities.Currency;
 import com.myself.crypto.pets.entities.Portfolio;
+import com.myself.crypto.pets.entities.Position;
 import com.myself.crypto.pets.services.CategoriesService;
 import com.myself.crypto.pets.services.CurrenciesService;
 import com.myself.crypto.pets.services.PortfoliosService;
@@ -20,11 +21,13 @@ import java.util.Map;
 @RequestMapping("/portfolios")
 public class PortfoliosController {
     private PortfoliosService portfoliosService;
+    private CurrenciesService currenciesService;
     //private CategoriesService categoriesService;
 
     @Autowired
-    public PortfoliosController(PortfoliosService portfoliosService) {
+    public PortfoliosController(PortfoliosService portfoliosService, CurrenciesService currenciesService) {
         this.portfoliosService = portfoliosService;
+        this.currenciesService = currenciesService;
         //this.categoriesService = categoriesService;
     }
 
@@ -41,7 +44,9 @@ public class PortfoliosController {
     @GetMapping (path = "/view/{id}")
     public String showPortfolio(@PathVariable Long id, Model model) {
         Portfolio portfolio = portfoliosService.findById(id);
+        List<Currency> currencies = currenciesService.findAll();
         model.addAttribute("portfolio", portfolio);
+        model.addAttribute("currencies", currencies);
         return "view_portfolio";
     }
 
@@ -56,12 +61,16 @@ public class PortfoliosController {
 //        return "add_currency_form";
 //    }
 //
-//    @PostMapping("/add")
-//    public String saveNewCurrency(@ModelAttribute Currency currency) {
-//        currenciesService.saveOrUpdate(currency);
-//        return "redirect:/currencies/";
-//    }
-//
+    @PostMapping("/add")
+    public String saveNewPosition(@RequestParam("coinId") String coinId, @RequestParam("portfolioId") Long portfolioId, @RequestParam("amount") Long amount) {
+        if ( (Long.parseLong(coinId) <= 0) || (portfolioId <= 0) || (amount <= 0)) return "redirect:/portfolios/";
+        Currency coin = currenciesService.findById(Long.parseLong(coinId));
+        Portfolio portfolio = portfoliosService.findById(portfolioId);
+        Position position = new Position(null,amount, portfolio, coin);
+        portfoliosService.addPosition(portfolioId,position);
+        return "redirect:/portfolios/view/"+portfolioId;
+    }
+
 
     @GetMapping("/delete/{id}")
     public String deletePortfolio(@PathVariable Long id, Model model) {

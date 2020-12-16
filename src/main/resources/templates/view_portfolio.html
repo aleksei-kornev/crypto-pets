@@ -63,6 +63,21 @@
         </tbody>
     </table>
 
+    <h4>Добавить позицию</h4>
+<!--    th:object="${position}"-->
+<!--    hidden-->
+    <form th:action="@{/portfolios/add}"  method="POST">
+        <input name="portfolioId" th:value="${portfolio.id}" type="number"/>
+        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="coinId">
+            <option disabled selected>Название монеты</option>
+            <option th:each="c : ${currencies}"
+                    th:value="${c.getId()}"
+                    th:utext="${c.getTicker()}"/>
+        </select>
+        <input type="number" name="amount" placeholder="Введите количество"/>
+        <input type="submit" value="Добавить позицию"/>
+    </form>
+    <br>
 </div>
 </body>
 </html>
